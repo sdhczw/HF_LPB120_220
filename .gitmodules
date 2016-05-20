@@ -1,0 +1,6 @@
+[submodule "src/thirdPart/ZC"]
+	path = src/thirdPart/ZC
+	url = git@github.com:sdhczw/ZC.git
+[submodule "src/thirdPart/AC"]
+	path = src/thirdPart/AC
+	url = git@github.com:sdhczw/AC.git

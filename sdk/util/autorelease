@@ -1,0 +1,117 @@
+#match svn v706
+#for General 
+#make sure ssv6060 can be make success before run script
+
+cd examples/ssv6060
+
+if [ -f "svn_ver.h" ]; then
+	echo "svn_ver.h exist"
+else
+	echo "svn_ver.h isn't exist"
+	make version
+fi
+
+if [ -f "ssv6060_mac.hex" ]; then
+	echo "ssv6060_mac.hex exist"
+else
+	echo "ssv6060_mac.hex isn't exist"
+	../../util/gen_mac_bin.exe 00-23-45-67-89-99
+fi
+
+find ../ -type d -exec cp svn_ver.h {} \;
+find ../ -type d -exec cp ssv6060_mac.hex {} \;
+
+make
+cd ..
+cd ..
+
+#delete cabrio source code
+find ./cpu/cabrio-e/ -type f -name "*.c" -exec rm -rf {} \;
+find ./platform/cabrio-e/ -type f -name "*.c" -exec rm -rf {} \;
+find ./core/net/ieee80211_bss/ -type f -name "*.c" -exec rm -rf {} \;
+
+
+if [ -d ./obj_ssv ]; then
+	echo "folder is exist"
+else
+	mkdir ./obj_ssv
+fi
+cp ./examples/ssv6060/obj_cabrio-e/bsp.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/clock.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/console.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/contiki-main.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/cpu.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/dbg-atcmd-api.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/dbg-printf.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/debug-uart.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/drv_mac.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/drv_mbox.o ./obj_ssv
+#cp ./examples/ssv6060/obj_cabrio-e/drv_packetbuffer.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/drv_timer.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/drv_uart.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/EAPOL.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/elfloader-stub.o ./obj_ssv
+#cp ./examples/ssv6060/obj_cabrio-e/gpio.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/hw_init.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/hw_regs_api.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/ieee80211_*.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/irq.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/rtimer-arch.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/ssv_lib.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/ssv6200_rx.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/ssv6200_tx.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/ssvradio.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/strformat.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/drv_pmu.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/smartConf.o ./obj_ssv
+#cp ./examples/ssv6060/obj_cabrio-e/pwm.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/xmem.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/wep.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/wpa.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/wpa_ccmp.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/wpa_tkip.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/sha1.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/md5.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/hmac_sha1.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/hmac_md5.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/hash_alg.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/AES_decrypt.o ./obj_ssv
+#cp ./examples/ssv6060/obj_cabrio-e/serial.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/arc4.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/crypthw.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/drv_phy.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/airkiss.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/drv_fence.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/boot-main.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/fence.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/pk_buf_test.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/cfs-coffee.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/i2c.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/rate_control.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/smartComm.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/soft_ap.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/ssid_recv.o ./obj_ssv
+
+cp ./examples/ssv6060/obj_cabrio-e/drv_gpio.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/drv_pwm.o ./obj_ssv
+#cp ./examples/ssv6060/obj_cabrio-e/gpio_api.o ./obj_ssv
+#cp ./examples/ssv6060/obj_cabrio-e/pwm_api.o ./obj_ssv
+#cp ./examples/ssv6060/obj_cabrio-e/serial_api.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/swpwm.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/drv_pktbuf.o ./obj_ssv
+#cp ./examples/ssv6060/obj_cabrio-e/drv_i2c.o ./obj_ssv
+#cp ./examples/ssv6060/obj_cabrio-e/swi2c.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/drv_flash.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/userSmart.o ./obj_ssv
+
+cp ./examples/ssv6060/obj_cabrio-e/bsp_info.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/drv_wdog.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/soft_ap_init.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/test_entry.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/boot-hiflying.o ./obj_ssv
+cp ./examples/ssv6060/obj_cabrio-e/ota_api.o ./obj_ssv
+
+cd examples/ssv6060
+make clean
+cd ..
+cd ..
